@@ -1,5 +1,6 @@
 # Shapes
 A Unity2D game about shapes.
+C# will be the language.
 Some things we talked about earlier:
   - 2D shapes characters
   - Different environments that benefit different shapes
