@@ -13,13 +13,13 @@ Some things we talked about earlier:
   - Controls might be effected according to how the emotions change
   - The infinity symbol might be some sort of a divine entity
   - move individually, but can change into the other two parteners
- Hero Characters:
+Hero Characters:
   - Each shape might have attack abilities
   - 
- Enemies: THe incompleets
+Enemies: THe incompleets
   - Shapes condtradicting to the hero shapes
   - These shapes will be open shapes
   - Will have possible upgrades through collectablesk
- Accessing the shapes:
+Accessing the shapes:
   - Quick acccess buttons and slow motion changing
- Animation Spread sheet
+Animation Spread sheet
