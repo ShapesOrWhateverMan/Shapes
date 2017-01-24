@@ -1,0 +1,26 @@
+party class
+	- arrayList for the party system.
+	- Of size three
+	- a seperate class
+	- a game object in unity
+	- Decide wehther a shape can join or not
+
+=========================================
+enum class
+	- For the position of the shapes in the list
+		(this might be in the party class or script)
+	- Implement this using adjecency matrix
+		- Triangle
+			- index 1 has one column
+			- index 2 has two column
+			- So on .........
+			- select the bigger number from the two indexes and
+				go to its column (which will the smaller number)
+==========================================
+environment
+	- create a class
+	- enivornment physics
+============================================
+the enemy is numeric values	
+	- the final bosses will be roman numerals, and symbols like pie, i, e
+	- maybe two seperate sub file from shapes, heores and enemies
