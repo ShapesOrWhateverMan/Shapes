@@ -7,6 +7,7 @@ public class EnemyShooter : Enemy {
     public Transform target;//TODO: let ShooterAI assign the target
     public float fireRate = 0.5f;
     public float bulletDamage = 30f;
+    //public int fireRotationOffset = 90;
     public LayerMask hitLayer;
 
     float timeToFire = 0;
@@ -22,6 +23,8 @@ public class EnemyShooter : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
+        //Always aim at target
+        AimAtTarget();
         //TODO: Check if target is within detection radius
         //Laser, basically
         if (fireRate == 0) {
@@ -41,9 +44,20 @@ public class EnemyShooter : Enemy {
         Vector2 firePointPos = new Vector2(firePoint.position.x, firePoint.position.y);
         RaycastHit2D hit = Physics2D.Raycast(firePointPos, targetPos - firePointPos, 100, hitLayer);
         BulletEffect();
+        if (hit.collider != null) {
+            //Player is hit! Deal damage equal to bulletDamage
+        }
     }
 
     void BulletEffect() {
         Instantiate(BulletTrailPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    void AimAtTarget() {
+        Vector3 difference = target.position - transform.position;
+        difference.Normalize();
+
+        float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotZ);
     }
 }
