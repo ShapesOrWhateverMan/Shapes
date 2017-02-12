@@ -1,0 +1,16 @@
+shapes:- abstract class
+	move from unity 
+	jump 
+	(unique):- abilities implementation
+	health points and ability points 
+	list :- character relation list (for characters in you team)
+		(array, arrayList, and a list for implentation :-> of integers) 
+	boolean:- good or bad (freindly or enemy)
+
+Environment:- Prebuilt or build from scratch (which one?). 
+========================================================
+IntractiveEnvironment (parent class):- Should be an abstract class
+- sprites for the environment.
+	
+
+	
