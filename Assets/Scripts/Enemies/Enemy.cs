@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
     public void DamageEnemy(int damage) {
         stats.health -= damage;
         if (stats.health <= 0) {
-            //GameMaster.KillEnemy(this);
+            GameMaster.KillEnemy(this);
         }
     }
 }

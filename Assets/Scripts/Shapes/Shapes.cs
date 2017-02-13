@@ -122,6 +122,10 @@ public abstract class Shapes : MonoBehaviour {
     }
 
     void Update() {
+        //Death by falling
+        if (transform.position.y <= -30) {
+            DamagePlayer(999999);
+        }
         //Now for the jumping
         if (Input.GetKeyDown(KeyCode.Space) && canJump) {
             //Also the the code for changing the boolean for the 
@@ -140,5 +144,14 @@ public abstract class Shapes : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    //Damage & Death
+    public void DamagePlayer(float damage) {
+        healthPoints -= damage;
+        if (healthPoints <= 0) {
+            //TODO: Kill Player: play death animation
+            GameMaster.KillPlayer(this);
+        }
     }
 }

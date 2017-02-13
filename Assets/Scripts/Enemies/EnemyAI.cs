@@ -69,8 +69,9 @@ public class EnemyAI : MonoBehaviour {
                 searchingForPlayer = true;
                 StartCoroutine(SearchForPlayer());
             }
-            yield return false;
+            yield break;
         }
+        
         seeker.StartPath(transform.position, target.position, OnPathComplete);
         yield return new WaitForSeconds(1f / repathRate);
         StartCoroutine(UpdatePath());

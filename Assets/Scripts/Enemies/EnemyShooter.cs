@@ -7,6 +7,8 @@ public class EnemyShooter : Enemy {
     public Transform target;//TODO: let ShooterAI assign the target
     public float fireRate = 0.5f;
     public float bulletDamage = 30f;
+    public float triggerRadius = 20f;
+    public float nextTimeToSearch = 0;
     //public int fireRotationOffset = 90;
     public LayerMask hitLayer;
 
@@ -23,6 +25,22 @@ public class EnemyShooter : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
+        if (target == null) {
+            FindPlayer();
+            return;
+        }
+
+        //Death by falling
+        if (transform.position.y <= -30) {
+            DamageEnemy(999999);
+        }
+
+        //Aim and shoot at target if within radius
+        Vector3 difference = target.position - transform.position;
+        if (difference.magnitude > triggerRadius) {
+            target = null;
+            return; //Or patrol
+        }
         //Always aim at target
         AimAtTarget();
         //TODO: Check if target is within detection radius
@@ -59,5 +77,15 @@ public class EnemyShooter : Enemy {
 
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotZ);
+    }
+
+    void FindPlayer() {
+        if (nextTimeToSearch <= Time.time) {
+            GameObject searchResult = GameObject.FindGameObjectWithTag("Player");
+            if (searchResult != null) {
+                target = searchResult.transform;
+            }
+            nextTimeToSearch = Time.time + 0.5f;
+        }
     }
 }
