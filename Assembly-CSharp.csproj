@@ -49,12 +49,19 @@
      <Compile Include="Assets\Script\Donut.cs" />
      <Compile Include="Assets\Script\ForCamera\CameraFollow.cs" />
      <Compile Include="Assets\Script\ForEnvStuff.cs" />
+     <Compile Include="Assets\Script\InstaKill.cs" />
+     <Compile Include="Assets\Script\Mangaer\Checkpoint.cs" />
+     <Compile Include="Assets\Script\Mangaer\GameHUD.cs" />
+     <Compile Include="Assets\Script\Mangaer\GameManage.cs" />
+     <Compile Include="Assets\Script\Mangaer\levelManage.cs" />
      <Compile Include="Assets\Script\NewGame.cs" />
      <Compile Include="Assets\Script\Party.cs" />
      <Compile Include="Assets\Script\TheEnviron\Bouncy.cs" />
      <Compile Include="Assets\Script\TheEnviron\Colidedtest.cs" />
      <Compile Include="Assets\Script\TheEnviron\Deadly.cs" />
      <Compile Include="Assets\Script\TheEnviron\Environment.cs" />
+     <Compile Include="Assets\Script\giveDamageToPlayer.cs" />
+     <Compile Include="Assets\Script\healthBar.cs" />
      <Compile Include="Assets\Script\shapes.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyAI.cs" />
@@ -79,9 +86,6 @@
      <None Include="Assets\Plugins\AstarPathfindingProject\Readme.txt" />
      <None Include="Assets\AstarPathfindingEditor\Editor\EditorAssets\Materials\NavmeshOutline.shader" />
      <None Include="Assets\Plugins\AstarPathfindingProject\link.xml" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -96,9 +100,6 @@
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Purchasing">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityPurchasing/UnityEngine.Purchasing.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.VR">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>

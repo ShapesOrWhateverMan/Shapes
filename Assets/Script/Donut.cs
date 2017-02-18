@@ -6,7 +6,7 @@ public class Donut : shapes{
 
 	void Start(){
 		isGoodOrBad (true);
-		base.Start ();
+		//base.Start ();
 		setCharPos (3); //Doughnut is number three in the doc
 	}
 

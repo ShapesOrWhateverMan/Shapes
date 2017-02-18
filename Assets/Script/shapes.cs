@@ -13,15 +13,18 @@ public abstract class shapes : MonoBehaviour {
 	private bool canJump = true;
 	public Transform startPos;
 	public LayerMask groundLayer;
-	private bool grounded = false;
+	private bool grounded;
 	private float groundRadius = 0.59f;
 	private bool goodOrBad; //True means good
-	private float healthPoints;
 	private float abilityPoints;
-	private List <int> relations;
+	private List<int> relations;
 	private int charPos;
 	private bool alive;
-
+	public int maxHealth = 100;
+	public int health { get; private set; }
+	public GameObject ouchEffect;
+	public bool isDead;
+	//private CharacterController2D controller;
 
 	//This is the ability function
 	//THis is right here is just a space taker
@@ -31,7 +34,6 @@ public abstract class shapes : MonoBehaviour {
 
 	//Setters
 	public void isGoodOrBad(bool v) { goodOrBad = v; /*True means good*/}
-	public void setHP(float s) { healthPoints = s; }
 	public void setAP(float s) { abilityPoints = s;}
 	public void setCharPos(int c) { charPos = c; }
 	public void setGrounded(bool s) { grounded = s; }
@@ -39,7 +41,6 @@ public abstract class shapes : MonoBehaviour {
 
 	//Getters
 	public bool checkIfGood() { return goodOrBad; } //Check if a character is good or not (getter for goodOrBad)
-	public float getHealthPoints() { return healthPoints; }
 	public float getAbilityPoints() { return abilityPoints; }
 	public int getCharPos() { return charPos; }
 	public Rigidbody2D getRigidBody2D() { return rigBody; }
@@ -48,7 +49,10 @@ public abstract class shapes : MonoBehaviour {
 	//Getter for currentCharPos
 
 	// Use this for initialization
-	public void Start () {
+	public void Awake () {
+		isDead = false;
+		health = maxHealth;
+		grounded = false;
 		relations = new List<int>(10);
 
 		//Initialization of the list
@@ -86,7 +90,6 @@ public abstract class shapes : MonoBehaviour {
 		}
 
 		if (grounded) {
-			Debug.Log ("grounded is true now");
 			canJump = true;
 		} else {
 			Debug.Log ("grounded is false");
@@ -100,11 +103,16 @@ public abstract class shapes : MonoBehaviour {
 	}
 
 	void Update(){
+		if (!isDead)
+			HandleInput ();
+	}
+
+	void HandleInput(){
 		//Now for the jumping
-		if (Input.GetKeyDown(KeyCode.Space) && canJump) {
+		if (Input.GetKeyDown (KeyCode.Space) && canJump) {
 			//Also the the code for changing the boolean for the 
 			//jump in UNity like in the video (for the animation to play)
-			anim.SetBool("Grounded", grounded);
+			anim.SetBool ("Grounded", grounded);
 			canJump = false;
 			rigBody.velocity = new Vector2 (rigBody.velocity.x, jumpStrength);
 		}
@@ -119,6 +127,7 @@ public abstract class shapes : MonoBehaviour {
 		transform.localScale = theScale;
 	}
 
+
 	// Use this for initialization
 	void OnCollisionStay2D (Collision2D coll) {
 		if(coll.gameObject.tag == "Ground")
@@ -126,8 +135,44 @@ public abstract class shapes : MonoBehaviour {
 		if (coll.gameObject.tag == "Spring")
 			rigBody.velocity = new Vector2 (rigBody.velocity.x, 5);
 	}
-		
+
 	void OnCollisionExit2D(Collision2D coll){
 		grounded = false;
 	}
+
+	//************************Violence*************/// <summary>
+	/// Below are the methods for damage killing and spawning
+	/// </summary>
+	public void kill()
+	{
+		//GetComponent<CharacterController2D> ().HandleCollisions = false;
+		GetComponent<Collider2D> ().enabled = false;
+		isDead = true;
+		health = 0;
+	}
+
+	public void RespawnAt(Transform spawnPoint)
+	{
+		if (!facingRight)
+			flip ();
+
+		isDead = false;
+		GetComponent<Collider2D> ().enabled = true;
+		//GetComponent<CharacterController2D> ().HandleCollisions = true;
+
+		transform.position = spawnPoint.position;
+
+		health = maxHealth;
+	}
+
+	//When the player takes damage
+	public void takeDamage(int damage){
+		Instantiate (ouchEffect, transform.position, transform.rotation);
+		health -= damage;
+
+		if (health <= 0) {
+			levelManage.instance.killPlayer ();
+		}
+	}
+
 }
