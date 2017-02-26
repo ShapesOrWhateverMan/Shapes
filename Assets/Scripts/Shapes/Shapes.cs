@@ -8,8 +8,8 @@ public abstract class Shapes : MonoBehaviour {
     private float inputHoriz;
     private Animator anim;
     private float speed;
-    private bool facingRight = true;
-    private float jumpStrength = 2;
+    protected bool facingRight = true;
+    private float jumpStrength = 20f;
     private bool canJump = true;
     public Transform startPos;
     public Transform endPos;
@@ -21,7 +21,8 @@ public abstract class Shapes : MonoBehaviour {
     private float abilityPoints;
     private List<int> relations;
     private int charPos;
-
+    public float iFrameEnd = 0f;        //Time when invincibility frame ends
+    public float iFrameDuration = 2f;   //2 seconds of invincibility upon hit
 
     //This is the ability function
     //THis is right here is just a space taker
@@ -121,7 +122,7 @@ public abstract class Shapes : MonoBehaviour {
 
     }
 
-    void Update() {
+    public void Update() {
         //Death by falling
         if (transform.position.y <= -30) {
             DamagePlayer(999999);
@@ -133,7 +134,7 @@ public abstract class Shapes : MonoBehaviour {
             anim.SetBool("Ground", false);
             canJump = false;
             rigBody.velocity = new Vector2(rigBody.velocity.x, jumpStrength);
-            //rigBody.AddForce(new Vector2(0, jumpStrength));
+            rigBody.AddForce(new Vector2(0, jumpStrength));
             grounded = false;
         }
     }
@@ -148,10 +149,13 @@ public abstract class Shapes : MonoBehaviour {
 
     //Damage & Death
     public void DamagePlayer(float damage) {
-        healthPoints -= damage;
-        if (healthPoints <= 0) {
-            //TODO: Kill Player: play death animation
-            GameMaster.KillPlayer(this);
+        if (Time.time > iFrameEnd) {
+            iFrameEnd = Time.time + iFrameDuration;
+            healthPoints -= damage;
+            if (healthPoints <= 0) {
+                //TODO: Kill Player: play death animation
+                GameMaster.KillPlayer(this);
+            }
         }
     }
 }
