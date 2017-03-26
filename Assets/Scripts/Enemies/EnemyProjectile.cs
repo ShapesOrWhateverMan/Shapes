@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyProjectile : Enemy {
 
 	void Start () {
+        //Set stats
+        stats.maxHealth = 50f;
+        stats.health = stats.maxHealth;
         stats.contactDamage = 30f;
 	}
 

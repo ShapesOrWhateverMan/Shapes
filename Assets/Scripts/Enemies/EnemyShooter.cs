@@ -21,6 +21,9 @@ public class EnemyShooter : Enemy {
         if (firePoint == null) {
             Debug.LogError("Firepoint is null");
         }
+        //Set stats
+        stats.maxHealth = 100f;
+        stats.health = stats.maxHealth;
     }
 	
 	// Update is called once per frame

@@ -6,13 +6,20 @@ public class Enemy : MonoBehaviour {
 
 	[System.Serializable]
     public class EnemyStats {
-        public float health = 100f;
-        public float contactDamage = 20f;
+        public float maxHealth;
+        public float health;
+        public float contactDamage;
     }
 
     public EnemyStats stats = new EnemyStats();
 
-    public void DamageEnemy(float damage) {
+    void Awake() {
+        //Set stats
+        stats.maxHealth = 100f;
+        stats.health = stats.maxHealth;
+    }
+
+    virtual public void DamageEnemy(float damage) {
         stats.health -= damage;
         if (stats.health <= 0) {
             GameMaster.KillEnemy(this);

@@ -9,8 +9,9 @@ public class MoveTrail : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //TODO: set Vector3 targetDirection to replace Vector3.left below
-        if (gameObject != null)
+        if (gameObject != null) {
             transform.Translate(Vector3.right * Time.deltaTime * moveSpeed);
+        }
         Destroy(gameObject, 2);
 	}
 }

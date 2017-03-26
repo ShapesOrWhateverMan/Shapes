@@ -7,8 +7,8 @@ public class Lightning : Shapes {
     public float lightningDamage = 35f;
     public LayerMask hitLayer;
 
-    float abilityCooldown = 3f;       //Acts as ability cooldown
-    float timeToFire = 0;
+    float abilityCooldown = 2f;       //Acts as ability cooldown
+    private float timeToFire = 0;
     Transform firePoint;
     public Transform LightningTrailPrefab;
     public float lightningStrikeWidth = 1f;
@@ -18,7 +18,7 @@ public class Lightning : Shapes {
         if (firePoint == null) {
             Debug.LogError("Lightning Firepoint is null");
         }
-        setHP(100);
+        setHP(150);
     }
 
     void Start() {
@@ -60,24 +60,18 @@ public class Lightning : Shapes {
         //Hit by the top part of lightning
         foreach(RaycastHit2D hit in hits){
             hit.collider.SendMessage("DamageEnemy", lightningDamage, SendMessageOptions.DontRequireReceiver);
-            Debug.DrawRay(firePointPosTop, hitDirection, Color.red);
-            Debug.Log("Damage top: " + lightningDamage);
         }
 
         //Hit by the middle part of lightning
         hits = Physics2D.RaycastAll(firePointPosMid, hitDirection, 100, hitLayer);
         foreach (RaycastHit2D hit in hits) {
             hit.collider.SendMessage("DamageEnemy", lightningDamage, SendMessageOptions.DontRequireReceiver);
-            Debug.DrawRay(firePointPosMid, hitDirection, Color.red);
-            Debug.Log("Damage mid: " + lightningDamage);
         }
 
         //Hit by the bottom part of lightning
         hits = Physics2D.RaycastAll(firePointPosBot, hitDirection, 100, hitLayer);
         foreach (RaycastHit2D hit in hits) {
             hit.collider.SendMessage("DamageEnemy", lightningDamage, SendMessageOptions.DontRequireReceiver);
-            Debug.DrawRay(firePointPosBot, hitDirection, Color.red);
-            Debug.Log("Damage bot: " + lightningDamage);
         }
     }
 
